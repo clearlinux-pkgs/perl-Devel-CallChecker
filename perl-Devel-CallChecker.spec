@@ -4,44 +4,55 @@
 #
 Name     : perl-Devel-CallChecker
 Version  : 0.008
-Release  : 1
+Release  : 2
 URL      : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-CallChecker-0.008.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-CallChecker-0.008.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libd/libdevel-callchecker-perl/libdevel-callchecker-perl_0.007-2.debian.tar.xz
 Summary  : 'custom op checking attached to subroutines'
 Group    : Development/Tools
-License  : Artistic-1.0-Perl
-Requires: perl-Devel-CallChecker-lib
-Requires: perl-Devel-CallChecker-man
+License  : Artistic-1.0-Perl GPL-3.0
+Requires: perl-Devel-CallChecker-lib = %{version}-%{release}
+Requires: perl-Devel-CallChecker-license = %{version}-%{release}
+BuildRequires : buildreq-cpan
 BuildRequires : perl(DynaLoader::Functions)
-BuildRequires : perl(Module::Build)
 
 %description
 NAME
 Devel::CallChecker - custom op checking attached to subroutines
 DESCRIPTION
 
+%package dev
+Summary: dev components for the perl-Devel-CallChecker package.
+Group: Development
+Requires: perl-Devel-CallChecker-lib = %{version}-%{release}
+Provides: perl-Devel-CallChecker-devel = %{version}-%{release}
+
+%description dev
+dev components for the perl-Devel-CallChecker package.
+
+
 %package lib
 Summary: lib components for the perl-Devel-CallChecker package.
 Group: Libraries
+Requires: perl-Devel-CallChecker-license = %{version}-%{release}
 
 %description lib
 lib components for the perl-Devel-CallChecker package.
 
 
-%package man
-Summary: man components for the perl-Devel-CallChecker package.
+%package license
+Summary: license components for the perl-Devel-CallChecker package.
 Group: Default
 
-%description man
-man components for the perl-Devel-CallChecker package.
+%description license
+license components for the perl-Devel-CallChecker package.
 
 
 %prep
-tar -xf %{SOURCE1}
-cd ..
 %setup -q -n Devel-CallChecker-0.008
-mkdir -p %{_topdir}/BUILD/Devel-CallChecker-0.008/deblicense/
+cd ..
+%setup -q -T -D -n Devel-CallChecker-0.008 -b 1
+mkdir -p deblicense/
 mv %{_topdir}/BUILD/debian/* %{_topdir}/BUILD/Devel-CallChecker-0.008/deblicense/
 
 %build
@@ -59,10 +70,12 @@ fi
 
 %install
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/package-licenses/perl-Devel-CallChecker
+cp deblicense/copyright %{buildroot}/usr/share/package-licenses/perl-Devel-CallChecker/deblicense_copyright
 if test -f Makefile.PL; then
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
+make pure_install PERL_INSTALL_ROOT=%{buildroot} INSTALLDIRS=vendor
 else
-./Build install --installdirs=site --destdir=%{buildroot}
+./Build install --installdirs=vendor --destdir=%{buildroot}
 fi
 find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
@@ -71,12 +84,16 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/Devel/CallChecker.pm
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/Devel/CallChecker.pm
+
+%files dev
+%defattr(-,root,root,-)
+/usr/share/man/man3/Devel::CallChecker.3
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib/perl5/site_perl/5.26.1/x86_64-linux-thread-multi/auto/Devel/CallChecker/CallChecker.so
+/usr/lib/perl5/vendor_perl/5.26.1/x86_64-linux-thread-multi/auto/Devel/CallChecker/CallChecker.so
 
-%files man
-%defattr(-,root,root,-)
-/usr/share/man/man3/Devel::CallChecker.3
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/perl-Devel-CallChecker/deblicense_copyright
