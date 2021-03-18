@@ -4,7 +4,7 @@
 #
 Name     : perl-Devel-CallChecker
 Version  : 0.008
-Release  : 13
+Release  : 14
 URL      : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-CallChecker-0.008.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-CallChecker-0.008.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libd/libdevel-callchecker-perl/libdevel-callchecker-perl_0.007-2.debian.tar.xz
@@ -96,5 +96,5 @@ find %{buildroot} -type f -name '*.bs' -empty -exec rm -f {} ';'
 
 %files perl
 %defattr(-,root,root,-)
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/Devel/CallChecker.pm
-/usr/lib/perl5/vendor_perl/5.30.3/x86_64-linux-thread-multi/auto/Devel/CallChecker/CallChecker.so
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/Devel/CallChecker.pm
+/usr/lib/perl5/vendor_perl/5.32.1/x86_64-linux-thread-multi/auto/Devel/CallChecker/CallChecker.so
