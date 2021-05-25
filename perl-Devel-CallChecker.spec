@@ -4,7 +4,7 @@
 #
 Name     : perl-Devel-CallChecker
 Version  : 0.008
-Release  : 17
+Release  : 18
 URL      : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-CallChecker-0.008.tar.gz
 Source0  : https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Devel-CallChecker-0.008.tar.gz
 Source1  : http://http.debian.net/debian/pool/main/libd/libdevel-callchecker-perl/libdevel-callchecker-perl_0.007-2.debian.tar.xz
